@@ -18,7 +18,7 @@ DATABASE_ID = os.getenv('DATABASE_ID')
 notion = Client(auth=NOTION_API_KEY)
 
 
-
+serial_number = 0
 
 def fetch_jobs(what, where='', page=1):
     base_url = f"https://api.adzuna.com/v1/api/jobs/{where}/search/{page}"
@@ -37,11 +37,17 @@ def fetch_jobs(what, where='', page=1):
         print(f"Error fetching jobs: {e}")
         return None
 
+
+
 def add_job_to_notion(title, company, location, url, description):
+    global serial_number
+    serial_number += 1
     try:
         notion.pages.create(
             parent={'database_id': DATABASE_ID},
             properties={
+                "S/N": {"number": serial_number},
+                "Applied": {"checkbox": False},
                 "Title": {"title": [{"text": {"content": str(title)}}]},
                 "Company": {"rich_text": [{"text": {"content": str(company)}}]},
                 "Location": {"rich_text": [{"text": {"content": str(location)}}]},
@@ -55,19 +61,25 @@ def add_job_to_notion(title, company, location, url, description):
         print(f"Job details: Title={title}, Company={company}, Location={location}")
 
 def main():
-    stacks = ["Backend intern"]
-    countries = ["ng","gb", "us"]
+    keywords = [
+    "Backend intern",
+    "Backend internship",
+    "Software engineer intern"
+    "Junior backend"
+    
+]
+    countries = [ "us","ca", "au", "de", "fr", "jp", "in", "br","gb",]
 
-    for stack in stacks:
+    for keyword in keywords:
         for country in countries:
             page = 1
             while True:
-                jobs = fetch_jobs(stack, country, page)
+                jobs = fetch_jobs(keyword, country, page)
                 if not jobs or not jobs.get('results'):
-                    print(f"No more results for {stack} in {country}")
+                    print(f"No more results for {keyword} in {country}")
                     break
 
-                print(f"Fetched {len(jobs['results'])} jobs for {stack} in {country}, page {page}")
+                print(f"Fetched {len(jobs['results'])} jobs for {keyword} in {country}, page {page}")
 
                 for job in jobs['results']:
                     title = job.get('title', 'No Title')

@@ -11,12 +11,12 @@ ADZUNA_APP_ID = os.getenv('ADZUNA_APP_ID')
 ADZUNA_API_KEY = os.getenv('ADZUNA_API_KEY')
 
 
-# NOTION_API_KEY = os.getenv('NOTION_API_KEY ')
-# DATABASE_ID = os.getenv('DATABASE_ID')
-NOTION_API_KEY = 'secret_KpVLVzlsA8dY4o7R3Dl8MuyOWVf876uKjvIhDhAb3pS'
-DATABASE_ID = '624e08127af84ff0adb763089eb696a5'
+NOTION_API_KEY = os.getenv('NOTION_API_KEY')
+DATABASE_ID = os.getenv('DATABASE_ID')
+
 
 notion = Client(auth=NOTION_API_KEY)
+
 
 
 
@@ -79,7 +79,7 @@ def main():
                     add_job_to_notion(title, company, location, url, description)
 
                 page += 1
-                time.sleep(1)  # Be cautious with rate limiting
+                time.sleep(1) 
 
 if __name__ == "__main__":
     main()

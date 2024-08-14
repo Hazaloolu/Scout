@@ -1,4 +1,4 @@
-# Adzuna Job Search to Notion
+# NotionRecruiter
 
 This project fetches job listings from the Adzuna API and automatically adds them to a specified Notion database. It's designed to streamline the job search process by aggregating listings from multiple countries and job types into a single, organized Notion database.
 

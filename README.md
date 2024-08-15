@@ -7,6 +7,7 @@ Scout fetches job listings from the Adzuna API and automatically adds them to a 
 - Fetches job listings from Adzuna API
 - Supports multiple job stacks and countries
 - Adds job listings to a Notion database
+- Filter jobs based on keywords
 
 ## Prerequisites
 

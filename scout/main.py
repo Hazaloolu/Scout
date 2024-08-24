@@ -55,7 +55,7 @@ def add_job_to_notion(title, company, location, url, description):
                 "Description": {"rich_text": [{"text": {"content": str(description)[:50]}}]},
             }
         )
-        print(f"Added job: {title} at {company} in {location}")
+        print(f"Added job to notion db: {title} at {company} in {location}")
     except Exception as e:
         print(f"Error adding job to Notion: {e}")
         print(f"Job details: Title={title}, Company={company}, Location={location}")
